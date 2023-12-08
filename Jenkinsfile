@@ -6,6 +6,7 @@ pipeline {
   }
   environment {
     SCANNER_HOME=tool 'sonar-scanner'
+    PASSWORD=credentials('password')
   }
 
   stages {
@@ -39,10 +40,28 @@ pipeline {
       }
     }
 
-    stage('Install Dependencies') {
-      steps {
-        sh "npm install"
+    stage("Docker Build & Push"){
+      steps{
+        script{
+            sh "echo "$PASSWORD" | docker login -u jithendar --password-stdin"
+            sh "docker build -t 2048 ."
+            sh "docker tag 2048 jithendar/2048:latest "
+            sh "docker push jithendar/2048:latest "
+        }
       }
     }
+    stage("TRIVY"){
+      steps{
+        sh "trivy image sushantkapare1717/2048:latest > trivy.txt"
+      }
+    }
+
+//    stage('Install Dependencies') {
+//      steps {
+//        sh "npm install"
+//      }
+//    }
+
+
   }
 }
