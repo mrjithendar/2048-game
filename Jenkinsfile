@@ -10,14 +10,15 @@ pipeline {
 
   stages {
 
-    stage("Docker login"){
+    stage("Docker login") {
       steps {
         script {
           withCredentials([string(credentialsId: 'password', variable: 'dp')]) {
-            sh "echo "${dp}" | docker login -u jithendar --password-stdin"
+            sh "echo " $ { dp } " | docker login -u jithendar --password-stdin"
           }
         }
       }
+    }
 
     stage("Sonarqube Analysis "){
       steps{
