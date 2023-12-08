@@ -10,16 +10,6 @@ pipeline {
 
   stages {
 
-    stage("Docker login") {
-      steps {
-        script {
-          withCredentials([string(credentialsId: 'password', variable: 'dp')]) {
-            sh "echo ${dp} | docker login -u jithendar --password-stdin"
-          }
-        }
-      }
-    }
-
     stage("Sonarqube Analysis "){
       steps{
         withSonarQubeEnv('sonar-server') {
@@ -53,7 +43,7 @@ pipeline {
       steps {
         script {
           withCredentials([string(credentialsId: 'password', variable: 'dp')]) {
-            sh "echo "${dp}" | docker login -u jithendar --password-stdin"
+            sh "echo ${dp} | docker login -u jithendar --password-stdin"
             sh "docker build -t 2048 ."
             sh "docker tag 2048 jithendar/2048:latest"
             sh "docker push jithendar/2048:latest"
