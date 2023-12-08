@@ -14,11 +14,6 @@ pipeline {
         cleanWs()
       }
     }
-    stage('Checkout from Git'){
-      steps{
-        git 'https://github.com/SushantOps/2048-React-CICD.git'
-      }
-    }
     stage("Sonarqube Analysis "){
       steps{
         withSonarQubeEnv('sonar-server') {
