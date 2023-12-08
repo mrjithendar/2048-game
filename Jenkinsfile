@@ -42,8 +42,8 @@ pipeline {
     stage("Docker Build & Push"){
       steps {
         script {
-          withCredentials([string(credentialsId: 'test_cred', variable: 'password')]) {
-            sh " echo "$password" | docker login -u jithendar --password-stdin"
+          withCredentials([string(credentialsId: 'password', variable: 'dp')]) {
+            sh "echo "$dp" | docker login -u jithendar --password-stdin"
             sh "docker build -t 2048 ."
             sh "docker tag 2048 jithendar/2048:latest"
             sh "docker push jithendar/2048:latest"
@@ -54,6 +54,12 @@ pipeline {
     stage("TRIVY"){
       steps{
         sh "trivy image jithendar/2048:latest > trivy.txt"
+      }
+    }
+
+    stage('Deploy to container'){
+      steps{
+        sh 'docker run -d --name 2048 -p 3000:3000 jithendar/2048:latest'
       }
     }
 
