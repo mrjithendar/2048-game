@@ -53,7 +53,7 @@ pipeline {
     }
     stage("TRIVY"){
       steps{
-        sh "trivy image sushantkapare1717/2048:latest > trivy.txt"
+        sh "trivy image jithendar/2048:latest > trivy.txt"
       }
     }
 
