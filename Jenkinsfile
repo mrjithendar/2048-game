@@ -57,10 +57,7 @@ pipeline {
       }
     }
 
-//    stage('Deploy to container'){
-//      steps{
-//        sh 'docker run -d --name 2048 -p 3000:3000 jithendar/2048:latest'
-//      }
-//    }
+//to Deploy to container
+//sh 'docker run -d --name 2048 -p 3000:3000 jithendar/2048:latest'
   }
 }
