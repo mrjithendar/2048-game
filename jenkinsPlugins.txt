@@ -1,0 +1,4 @@
+Eclipse Temurin Installer
+Sonarqube Scanner
+NodeJS 16.2.0
+JDK 17.0.8.1+1
