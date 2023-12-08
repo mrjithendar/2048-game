@@ -1,4 +1,6 @@
 Eclipse Temurin Installer
 Sonarqube Scanner
-NodeJS 16.2.0
-JDK 17.0.8.1+1
+NodeJS
+
+configure nodejs version 16.2.0
+configure java version JDK 17.0.8.1+1

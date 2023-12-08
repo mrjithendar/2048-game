@@ -9,6 +9,24 @@ pipeline {
   }
 
   stages {
+
+    stage("Sonarqube Analysis "){
+      steps{
+        withSonarQubeEnv('sonar-server') {
+          sh ''' $SCANNER_HOME/bin/sonar-scanner -Dsonar.projectName=Game \
+                    -Dsonar.projectKey=Game '''
+        }
+      }
+    }
+
+    stage("quality gate"){
+      steps {
+        script {
+          waitForQualityGate abortPipeline: false, credentialsId: 'Sonar_cred'
+        }
+      }
+    }
+
     stage('Install Dependencies') {
       steps {
         sh "npm install"
